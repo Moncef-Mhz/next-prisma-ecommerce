@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 
 type props = {
   name: string;
@@ -21,7 +22,9 @@ const ProductCard = ({ name, description, price, category, image }: props) => {
         <CardTitle>{name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <img
+        <Image
+          width={500}
+          height={500}
           src={image}
           alt={name}
           className="w-full h-64 object-cover rounded-md"

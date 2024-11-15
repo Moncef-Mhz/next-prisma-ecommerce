@@ -9,7 +9,7 @@ import Avatardropdown from "@/components/ui/avatardropdown";
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
-
+  
   return (
     <Gutter className="w-full relative h-[80px] flex items-center justify-between ">
       <Link href={"/"} className="text-xl font-bold">

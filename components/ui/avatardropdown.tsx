@@ -18,14 +18,58 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import Link from "next/link";
 
 const Avatardropdown = () => {
-  const { isAuthenticated, getUser } = useKindeBrowserClient();
-  const user = getUser();
+  const { isAuthenticated, getUser, getPermission } = useKindeBrowserClient();
 
-  console.log(user);
+  const user = getUser();
+  const perms = getPermission("create:product");
 
   const avatarFallback = user?.email?.slice(0, 2);
+
+  const DropdownItems = (
+    <>
+      {perms?.isGranted ? (
+        <>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <Link href={"/dashboard"}>
+            <DropdownMenuItem className="cursor-pointer">
+              Dashboard
+            </DropdownMenuItem>
+          </Link>
+          <DropdownMenuItem className="cursor-pointer">
+            My Orders
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
+            Settings
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <LogoutLink>
+            <DropdownMenuItem className="cursor-pointer">
+              Log out
+            </DropdownMenuItem>
+          </LogoutLink>
+        </>
+      ) : (
+        <>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="cursor-pointer">
+            My Orders
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
+            Settings
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <LogoutLink>Log out</LogoutLink>
+          </DropdownMenuItem>
+        </>
+      )}
+    </>
+  );
 
   return (
     <DropdownMenu>
@@ -43,20 +87,12 @@ const Avatardropdown = () => {
       <DropdownMenuContent>
         {!isAuthenticated ? (
           <DropdownMenuItem>
-            <LoginLink postLoginRedirectURL="/">Sign In</LoginLink>
+            <LoginLink postLoginRedirectURL="/api/auth/success">
+              Sign In
+            </LoginLink>
           </DropdownMenuItem>
         ) : (
-          <>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Orders</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogoutLink>Log out</LogoutLink>
-            </DropdownMenuItem>
-          </>
+          <>{DropdownItems}</>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
