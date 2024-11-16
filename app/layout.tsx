@@ -4,7 +4,7 @@ import "./globals.css";
 
 import { AuthProvider } from "@/lib/AuthProvider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
-import Header from "@/components/global/Header";
+import { Toaster } from "@/components/ui/toaster";
 import LayoutProivder from "@/utils/LayoutProivder";
 
 const inter = Inter({
@@ -26,7 +26,10 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${inter.className} antialiased`}>
           <EdgeStoreProvider>
-            <LayoutProivder>{children}</LayoutProivder>
+            <LayoutProivder>
+              {children}
+              <Toaster />
+            </LayoutProivder>
           </EdgeStoreProvider>
         </body>
       </html>

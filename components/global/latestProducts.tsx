@@ -15,6 +15,7 @@ const LatestProducts = () => {
       <div className="grid gap-5 md:grid-cols-2 grid-cols-1 lg:grid-cols-4 w-full">
         {products.map((product) => (
           <ProductCard
+            key={product.name}
             name={product.name}
             category={product.category}
             description={product.description}

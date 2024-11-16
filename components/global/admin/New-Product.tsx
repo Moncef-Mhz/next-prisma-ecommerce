@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { SingleImageDropzone } from "@/components/ui/singleImageDropzone";
 import { useState } from "react";
 import { CreateProduct } from "@/actions/Product";
@@ -36,9 +37,9 @@ const formSchema = z.object({
 
 const NewProductForm = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
-  // const [progress, setProgress] = useState<string>("");
 
   const { edgestore } = useEdgeStore();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -73,7 +74,12 @@ const NewProductForm = () => {
       price: values.price,
       category: values.category,
       image: imageUrl, // Assuming this is the image URL after upload
+    }).then((res) => {
+      toast({
+        description: res.success,
+      });
     });
+    form.reset();
   }
 
   return (
