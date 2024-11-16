@@ -1,21 +1,47 @@
 "use client";
 import Header from "@/components/global/Header";
 import { usePathname } from "next/navigation";
+import { ThemeProvider } from "@/lib/theme-provider";
+import { useEffect, useState } from "react";
+
 const LayoutProivder = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const path = usePathname();
-  //   console.log(path.split("/")[1]);
+
+  if (!mounted) {
+    return <div />; // Or a loading spinner
+  }
   if (path.split("/")[1] === "dashboard") {
-    return <>{children}</>;
+    return (
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="light"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {children}
+      </ThemeProvider>
+    );
   } else {
     return (
-      <>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="light"
+        enableSystem
+        disableTransitionOnChange
+      >
         <Header />
         {children}
-      </>
+      </ThemeProvider>
     );
   }
 };

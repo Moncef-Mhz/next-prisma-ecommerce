@@ -56,10 +56,10 @@ const NewProductForm = () => {
     try {
       const uploadResponse = await edgestore.publicFiles.upload({
         file,
-        onProgressChange: (progress) => console.log(progress),
+        // onProgressChange: (progress) => console.log(progress),
       });
       const uploadedImageUrl = uploadResponse.url;
-
+      console.log(uploadResponse);
       setImageUrl(uploadedImageUrl); // Set the image URL
       form.setValue("image", uploadedImageUrl); // Set the image URL in form field
     } catch (error) {
@@ -79,6 +79,7 @@ const NewProductForm = () => {
         description: res.success,
       });
     });
+    setImageUrl("");
     form.reset();
   }
 

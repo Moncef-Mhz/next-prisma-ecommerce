@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { revalidatePath } from "next/cache";
 
 export const CreateProduct = async (formData: {
   name: string;
@@ -32,7 +33,6 @@ export const CreateProduct = async (formData: {
           image,
         },
       });
-
       return { success: "product has been created successfully" };
     } catch (error) {
       console.error("Error creating product:", error);

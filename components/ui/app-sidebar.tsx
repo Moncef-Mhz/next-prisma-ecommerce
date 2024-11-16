@@ -30,6 +30,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { ModeToggle } from "./darkmode-toggle";
 
 // This is sample data.
 const data = {
@@ -177,6 +178,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
+        
         <NavUser />
       </SidebarFooter>
       <SidebarRail />
