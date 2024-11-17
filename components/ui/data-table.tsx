@@ -36,11 +36,17 @@ import Link from "next/link";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filterText: string;
+  createButton: boolean;
+  createLink: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filterText,
+  createButton,
+  createLink,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -70,10 +76,12 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex flex-col-reverse   md:flex-row w-full items-end md:items-center justify-between gap-y-4 py-4">
         <Input
-          placeholder="Filter names..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder={`Filter ${filterText}...`}
+          value={
+            (table.getColumn(filterText)?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn(filterText)?.setFilterValue(event.target.value)
           }
           className="md:max-w-sm w-full"
         />
@@ -104,9 +112,11 @@ export function DataTable<TData, TValue>({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant="default" className="ml-auto">
-            <Link href={"products/new"}>Create Products</Link>
-          </Button>
+          {createButton && (
+            <Button variant="default" className="ml-auto">
+              <Link href={createLink}>Create Products</Link>
+            </Button>
+          )}
         </div>
       </div>
 

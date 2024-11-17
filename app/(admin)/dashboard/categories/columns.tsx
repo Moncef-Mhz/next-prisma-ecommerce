@@ -1,9 +1,13 @@
 "use client";
 
+import { CreateCategory, DeleteCategory } from "@/actions/Category";
+
 import { ColumnDef } from "@tanstack/react-table";
 
 import { ArrowDown, MoreHorizontal } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
+
+import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,29 +20,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DeleteProduct } from "@/actions/Product";
-import { useEffect, useState } from "react";
-import { GetCategories } from "@/actions/Category";
-import { useRouter } from "next/navigation";
+import { toast, useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
-type category = {
+export type Category = {
   id: string;
   name: string;
   createdAt: Date;
   updatedAt: Date;
 };
-export type Product = {
-  id: string;
-  name: string;
-  price: number;
-  categoryId: string | null;
-  description: string;
-  image: string;
-  orderId?: string;
-};
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<Category>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -63,61 +56,44 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: "name",
-    header: "Products Name",
-    cell: ({ row }) => (
-      <div className="flex items-center">{row.getValue("name")}</div>
-    ),
-  },
-  {
-    accessorKey: "price",
     header: ({ column }) => {
       return (
         <Button
           variant={"ghost"}
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="text-right  float-right"
+          className="text-right  float-left capitalize"
         >
-          Price
+          Category
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    cell: ({ row }) => {
-      const price = parseFloat(row.getValue("price"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(price);
-
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
+    cell: ({ row }) => (
+      <div className="flex items-center">{row.getValue("name")}</div>
+    ),
   },
   {
-    accessorKey: "categoryId",
-    header: () => <div className="float-right">Category</div>,
-    cell: ({ row }) => {
-      const [categories, setCategories] = useState<category[]>([]);
-      const categoryId = row.getValue("categoryId");
-
-      useEffect(() => {
-        const fetchCategories = async () => {
-          const fetchedCategories = await GetCategories();
-          setCategories(fetchedCategories);
-        };
-
-        fetchCategories();
-      }, []);
-
-      const category = categories.find((cat) => cat.id === categoryId);
-      const categoryName = category ? category.name : "Unknown";
-
-      return <div className="text-right font-medium">{categoryName}</div>;
-    },
+    accessorKey: "createdAt",
+    header: () => <div className="float-right">Created At</div>,
+    cell: ({ row }) => (
+      <div className="text-right font-medium capitalize">
+        {format(new Date(row.getValue("createdAt")), "yyyy-MM-dd HH:mm")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "updatedAt",
+    header: () => <div className="float-right">Updated At</div>,
+    cell: ({ row }) => (
+      <div className="text-right font-medium capitalize">
+        {format(new Date(row.getValue("updatedAt")), "yyyy-MM-dd HH:mm")}
+      </div>
+    ),
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const product = row.original;
+      const category = row.original;
       const router = useRouter();
 
       return (
@@ -131,16 +107,17 @@ export const columns: ColumnDef<Product>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(product.id)}
+              onClick={() => navigator.clipboard.writeText(category.id)}
             >
               Copy Product URL
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Update</DropdownMenuItem>
+            <DropdownMenuItem>Info</DropdownMenuItem>
             <DropdownMenuItem
               className="text-red-500 "
               onClick={async () => {
-                const res = await DeleteProduct(product.id);
+                const res = await DeleteCategory(category.id);
+
                 toast({
                   description: res?.success,
                   action: (

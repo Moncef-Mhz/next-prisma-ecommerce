@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { CreateProduct } from "@/actions/Product";
+
 import { useEdgeStore } from "@/lib/edgestore";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,12 +19,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { SingleImageDropzone } from "@/components/ui/singleImageDropzone";
-import { useState } from "react";
-import { CreateProduct } from "@/actions/Product";
+import prisma from "@/lib/db";
+import { GetCategories } from "@/actions/Category";
 
 // form Schema
 const formSchema = z.object({
@@ -35,8 +48,29 @@ const formSchema = z.object({
   image: z.string().url("Image must be a valid URL"),
 });
 
+//category type
+type category = {
+  id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 const NewProductForm = () => {
+  const [categories, setCategories] = useState<category[]>([]);
   const [imageUrl, setImageUrl] = useState<string>("");
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const categories = await GetCategories();
+        setCategories(categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    loadCategories();
+  }, []);
 
   const { edgestore } = useEdgeStore();
   const { toast } = useToast();
@@ -136,7 +170,24 @@ const NewProductForm = () => {
               <FormItem>
                 <FormLabel>Category</FormLabel>
                 <FormControl>
-                  <Input placeholder="ex: Shoes" {...field} />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Select Categoty</SelectLabel>
+                        {categories.map((category) => (
+                          <SelectItem value={category.id} key={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -8,7 +8,13 @@ const ProductsPage = async () => {
   const products = await prisma.product.findMany();
   return (
     <div className="container mx-auto py-5">
-      <DataTable columns={columns} data={products} />
+      <DataTable
+        filterText="name"
+        columns={columns}
+        data={products}
+        createButton={true}
+        createLink="products/new"
+      />
     </div>
   );
 };

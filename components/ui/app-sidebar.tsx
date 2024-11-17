@@ -6,6 +6,7 @@ import {
   BookOpen,
   Bot,
   Box,
+  CatIcon,
   Command,
   Frame,
   GalleryVerticalEnd,
@@ -13,8 +14,10 @@ import {
   LayoutDashboard,
   Map,
   PieChart,
+  Replace,
   Settings2,
   SquareTerminal,
+  Tag,
   Users,
 } from "lucide-react";
 
@@ -155,6 +158,11 @@ const data = {
       icon: Layers3,
     },
     {
+      name: "Categories",
+      url: "/dashboard/categories",
+      icon: Tag,
+    },
+    {
       name: "Orders",
       url: "/dashboard/orders",
       icon: Box,
@@ -178,7 +186,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        
         <NavUser />
       </SidebarFooter>
       <SidebarRail />

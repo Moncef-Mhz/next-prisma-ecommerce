@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { revalidatePath } from "next/cache";
 
 export const CreateProduct = async (formData: {
   name: string;
@@ -29,7 +28,7 @@ export const CreateProduct = async (formData: {
           name,
           description,
           price,
-          category,
+          category: { connect: { id: category } },
           image,
         },
       });
@@ -58,7 +57,7 @@ export const DeleteProduct = async (id: string) => {
         throw new Error("Product not found");
       }
 
-      return { success: "product has been deleted successfully" };
+      return { success: "Product has been deleted successfully" };
     } catch (error) {
       console.error("Error deleting product:", error);
       throw new Error("Failed to delete product");
