@@ -3,6 +3,7 @@ import Header from "@/components/global/Header";
 import { usePathname } from "next/navigation";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { useEffect, useState } from "react";
+import { StateContext, useStateContext } from "@/context/StateContext";
 
 const LayoutProivder = ({
   children,
@@ -39,8 +40,10 @@ const LayoutProivder = ({
         enableSystem
         disableTransitionOnChange
       >
-        <Header />
-        {children}
+        <StateContext>
+          <Header />
+          {children}
+        </StateContext>
       </ThemeProvider>
     );
   }

@@ -1,12 +1,15 @@
-import { products } from "@/constant";
 import { Gutter } from "./Gutter";
 import { ArrowRight } from "lucide-react";
 import ProductCard from "./Card";
 import prisma from "@/lib/db";
+
 const LatestProducts = async () => {
   // Fetching latest products from your API or database
-  const products = await prisma.product.findMany({ take: 4 });
-
+  const products = await prisma.product.findMany({
+    include: { category: true },
+    take: 4,
+  });
+  console.log(products);
   return (
     <Gutter className="flex flex-col gap-6">
       <div className="flex items-center justify-between w-full">
@@ -18,14 +21,7 @@ const LatestProducts = async () => {
       </div>
       <div className="grid gap-5 md:grid-cols-2 grid-cols-1 lg:grid-cols-4 w-full">
         {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            name={product.name}
-            category={product.category}
-            description={product.description}
-            price={product.price}
-            image={product?.image}
-          />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </Gutter>
