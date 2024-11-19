@@ -6,9 +6,12 @@ import { navLinks } from "@/constant";
 import { useState } from "react";
 import Link from "next/link";
 import Avatardropdown from "@/components/ui/avatardropdown";
+import { useStateContext } from "@/context/StateContext";
+import Cart from "@/components/ui/Cart";
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const { setShowCart } = useStateContext();
 
   return (
     <Gutter className="w-full relative h-[80px] flex items-center justify-between ">
@@ -18,7 +21,7 @@ const Header = () => {
 
       <div className="flex  items-center gap-x-6">
         <Avatardropdown />
-        <ShoppingCart className="cursor-pointer hover:text-black/50 trans" />
+        <Cart />
 
         <Menu
           className="cursor-pointer md:hidden hover:text-black/50 trans"

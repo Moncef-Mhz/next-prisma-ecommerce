@@ -9,7 +9,6 @@ const LatestProducts = async () => {
     include: { category: true },
     take: 4,
   });
-  console.log(products);
   return (
     <Gutter className="flex flex-col gap-6">
       <div className="flex items-center justify-between w-full">

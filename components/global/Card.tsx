@@ -63,7 +63,6 @@ const ProductCard = ({ product }: Props) => {
       </CardContent>
       <CardFooter>
         <Button onClick={handleAddToCart}>Add to Cart</Button>
-        <Button onClick={clearCart}>Clear</Button>
       </CardFooter>
     </Card>
   );
