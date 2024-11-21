@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { CreateCategory } from "@/actions/Category";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { NewCategoryForm as formSchema } from "@/types/FormTypes";
+
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,10 +20,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-
-const formSchema = z.object({
-  name: z.string().min(3, "Name must be at least 3 characters").max(50),
-});
 
 const NewCategoryForm = () => {
   const { toast } = useToast();

@@ -18,14 +18,7 @@ import { CreateOrder } from "@/actions/Order";
 import { useStateContext } from "@/context/StateContext";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
-
-const formSchema = z.object({
-  street: z.string().min(3, "Street must be at least 3 characters"),
-  city: z.string().min(3, "City must be at least 3 characters"),
-  state: z.string().min(3, "State must be at least 3 characters"),
-  zip: z.string().min(2, "Zip must be at least 2 characters"),
-  phone: z.string().min(10, "Phone number must be at least 10 characters"),
-});
+import { NewOrderForm as formSchema } from "@/types/FormTypes";
 
 const CheckoutForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({

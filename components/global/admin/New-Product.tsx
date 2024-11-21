@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,31 +32,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { SingleImageDropzone } from "@/components/ui/singleImageDropzone";
-import prisma from "@/lib/db";
 import { GetCategories } from "@/actions/Category";
-
-// form Schema
-const formSchema = z.object({
-  name: z.string().min(3, "Name must be at least 3 characters").max(50),
-  description: z.string().min(3, "Description must be at least 3 characters"),
-  price: z
-    .string()
-    .regex(/^\d+(\.\d{1,2})?$/, "Price must be a valid number")
-    .transform((val) => parseFloat(val)),
-  category: z.string().min(3, "Category must be at least 3 characters"),
-  image: z.string().url("Image must be a valid URL"),
-});
-
-//category type
-type category = {
-  id: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { NewProductSchema as formSchema } from "@/types/FormTypes";
+import { Category } from "@/types/types";
 
 const NewProductForm = () => {
-  const [categories, setCategories] = useState<category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [imageUrl, setImageUrl] = useState<string>("");
 
   useEffect(() => {

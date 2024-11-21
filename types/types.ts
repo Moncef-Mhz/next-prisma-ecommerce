@@ -9,8 +9,22 @@ export interface Product {
     createdAt: Date;
     updatedAt: Date;
   } | null;
-  categoryId?: string;
-  orderId?: string;
+  categoryId?: string; // Optional
   description: string;
-  quantity: number;
+  quantity?: number; // Optional
 }
+
+export type OrderType = {
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  phone: string;
+};
+
+export type Category = {
+  id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

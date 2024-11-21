@@ -1,6 +1,6 @@
 "use client";
 
-import { CreateCategory, DeleteCategory } from "@/actions/Category";
+import { DeleteCategory } from "@/actions/Category";
 
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -19,17 +19,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DeleteProduct } from "@/actions/Product";
-import { toast, useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
-
-export type Category = {
-  id: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { Category } from "@/types/types";
 
 export const columns: ColumnDef<Category>[] = [
   {

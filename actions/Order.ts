@@ -2,30 +2,7 @@
 
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  category: {
-    id: string;
-    name: string;
-    createdAt: Date;
-    updatedAt: Date;
-  } | null;
-  categoryId?: string;
-  description: string;
-  quantity: number; // Ensure this is always defined
-}
-
-type OrderType = {
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-  phone: string;
-};
+import { OrderType, Product } from "@/types/types";
 
 export const CreateOrder = async (
   formData: OrderType,
@@ -55,7 +32,6 @@ export const CreateOrder = async (
   }
 
   const DbUser = await prisma.user.findUnique({ where: { kindeId: User.id } });
-
   if (!DbUser || !DbUser.id) {
     throw new Error("User not found in the database");
   }
@@ -73,7 +49,7 @@ export const CreateOrder = async (
         items: {
           create: products.map((product) => ({
             product: { connect: { id: product.id } },
-            quantity: product.quantity,
+            quantity: product.quantity ?? 1, // Add default value for quantity
             price: product.price,
           })),
         },

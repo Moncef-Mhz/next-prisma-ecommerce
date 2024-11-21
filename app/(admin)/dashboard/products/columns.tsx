@@ -21,22 +21,7 @@ import { GetCategories } from "@/actions/Category";
 import { useRouter } from "next/navigation";
 import { ToastAction } from "@/components/ui/toast";
 import { toast } from "@/hooks/use-toast";
-
-type category = {
-  id: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
-export type Product = {
-  id: string;
-  name: string;
-  price: number;
-  categoryId: string | null;
-  description: string;
-  image: string;
-  orderId?: string;
-};
+import { Category, Product } from "@/types/types";
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -96,7 +81,7 @@ export const columns: ColumnDef<Product>[] = [
     accessorKey: "categoryId",
     header: () => <div className="float-right">Category</div>,
     cell: ({ row }) => {
-      const [categories, setCategories] = useState<category[]>([]);
+      const [categories, setCategories] = useState<Category[]>([]);
       const categoryId = row.getValue("categoryId");
 
       useEffect(() => {

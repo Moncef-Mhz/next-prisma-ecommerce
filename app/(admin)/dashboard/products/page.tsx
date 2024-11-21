@@ -5,7 +5,17 @@ import { columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 
 const ProductsPage = async () => {
-  const products = await prisma.product.findMany();
+  const products = (
+    await prisma.product.findMany({
+      include: { category: true },
+    })
+  ).map((product) => ({
+    ...product,
+    categoryId: product.categoryId ?? undefined, // Convert `null` to `undefined`
+    quantity: product.quantity ?? 0, // Set default value if `null`
+  }));
+
+  console.log(products);
   return (
     <div className="container mx-auto py-5">
       <DataTable
