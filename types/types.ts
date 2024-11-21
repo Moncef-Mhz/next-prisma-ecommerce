@@ -12,5 +12,5 @@ export interface Product {
   categoryId?: string;
   orderId?: string;
   description: string;
-  quantity?: number;
+  quantity: number;
 }

@@ -1,12 +1,12 @@
 import { useStateContext } from "@/context/StateContext";
-import { Link, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const CheckoutItems = () => {
-  const { cartItems, setCartItems, clearCart, getCartTotal } =
-    useStateContext();
+  const { cartItems } = useStateContext();
   return (
-    <div>
+    <>
       <h1 className="text-2xl font-bold p-4 border-b">Your Cart</h1>
 
       {cartItems.length > 0 ? (
@@ -53,18 +53,16 @@ const CheckoutItems = () => {
         </div>
       ) : (
         <div className="p-4">
-          <h1>
-            your cart is empty{" "}
-            <Link
-              href={"/"}
-              className="hover:border-b-2 hover:border-foreground "
-            >
-              Go Shopping
-            </Link>
-          </h1>
+          your cart is empty{" "}
+          <Link
+            href={"/"}
+            className="hover:border-b-2 hover:border-foreground "
+          >
+            Go Shopping
+          </Link>
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default CheckoutItems;
