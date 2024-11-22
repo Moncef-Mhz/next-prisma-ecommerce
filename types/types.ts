@@ -28,3 +28,40 @@ export type Category = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type Order = {
+  id: string;
+  userId: string;
+  totalPrice: number;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  phone: string;
+  createdAt: Date;
+  items: OrderItem[];
+  status: OrderStatusEnum;
+  user: {
+    address: string | null;
+    id: string;
+    kindeId: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+  };
+};
+
+export type OrderItem = {
+  id: string;
+  orderId: string;
+  price: number;
+  product: Product;
+  productId: string;
+  quantity: number;
+};
+
+export enum OrderStatusEnum {
+  NOT_CONFIRMED = "not_confirmed",
+  IN_PROGRESS = "in_progress",
+  SHIPPED = "shipped",
+}

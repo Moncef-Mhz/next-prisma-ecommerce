@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { OrderType, Product } from "@/types/types";
+import { OrderType, Product, OrderStatusEnum } from "@/types/types";
 
 export const CreateOrder = async (
   formData: OrderType,
@@ -67,5 +67,64 @@ export const CreateOrder = async (
   } catch (error) {
     console.error("Error creating order:", error);
     throw new Error("Failed to create order. Please try again.");
+  }
+};
+
+export const UpdateOrderStatus = async (
+  status: OrderStatusEnum,
+  id: string
+) => {
+  const { isAuthenticated, getPermission } = await getKindeServerSession();
+
+  const isUserAuthenticated = await isAuthenticated();
+  if (!isUserAuthenticated) {
+    throw new Error("You need to be authenticated to create an order");
+  }
+
+  const isPerms = await getPermission("update:product");
+  if (!isPerms?.isGranted) {
+    throw new Error("You don't have permission to update order status");
+  }
+
+  try {
+    await prisma.order.update({
+      where: { id },
+      data: {
+        status,
+      },
+    });
+    return { success: "Order status has been updated successfully", ok: true };
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    throw new Error("Failed to update order status. Please try again.");
+  }
+};
+
+export const DeleteOrder = async (id: string) => {
+  const { isAuthenticated, getPermission } = await getKindeServerSession();
+
+  const isUserAuthenticated = await isAuthenticated();
+  if (!isUserAuthenticated) {
+    throw new Error("You need to be authenticated to delete an order");
+  }
+
+  const isPerms = await getPermission("delete:product");
+  if (!isPerms?.isGranted) {
+    throw new Error("You don't have permission to delete order");
+  }
+
+  if (!id) {
+    throw new Error("Order ID cannot be null or undefined");
+  }
+
+  try {
+    await prisma.$transaction([
+      prisma.orderItem.deleteMany({ where: { orderId: id } }), // Delete related OrderItems
+      prisma.order.delete({ where: { id } }), // Delete the Order itself
+    ]);
+    return { success: "Order has been deleted successfully", ok: true };
+  } catch (error) {
+    console.error("Error deleting order:", error);
+    throw new Error("Failed to delete order. Please try again.");
   }
 };

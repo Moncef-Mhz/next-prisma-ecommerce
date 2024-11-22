@@ -11,11 +11,10 @@ const ProductsPage = async () => {
     })
   ).map((product) => ({
     ...product,
-    categoryId: product.categoryId ?? undefined, // Convert `null` to `undefined`
-    quantity: product.quantity ?? 0, // Set default value if `null`
+    categoryId: product.categoryId ?? undefined,
+    quantity: product.quantity ?? 0,
   }));
 
-  console.log(products);
   return (
     <div className="container mx-auto py-5">
       <DataTable

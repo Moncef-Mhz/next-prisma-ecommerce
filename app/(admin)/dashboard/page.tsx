@@ -1,10 +1,11 @@
 import prisma from "@/lib/db";
-import { Layers3, Tag, Tags } from "lucide-react";
+import { BoxIcon, Layers3, ListOrdered, Tag, Tags } from "lucide-react";
 import Link from "next/link";
 
 export default async function Page() {
   const productsCount = await prisma.product.count();
   const categoriesCount = await prisma.category.count();
+  const ordersCount = await prisma.order.count();
 
   return (
     <>
@@ -47,7 +48,25 @@ export default async function Page() {
             />
           </Link>
         </div>
-        <div className="aspect-video rounded-xl bg-muted/50" />
+        <div className="aspect-video rounded-xl bg-muted/50 relative overflow-hidden p-4">
+          <Link
+            href={"/dashboard/orders"}
+            className="flex flex-col justify-between h-full w-full "
+          >
+            <h1 className="text-3xl font-bold z-10">Orders</h1>
+            <p className="text-foreground/70 z-10">
+              <span className="font-bold text-5xl text-foreground">
+                {ordersCount}
+              </span>{" "}
+              Orders in total
+            </p>
+
+            <BoxIcon
+              size={200}
+              className="absolute text-slate-200 -right-16 -bottom-16 "
+            />
+          </Link>
+        </div>
       </div>
       <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
     </>
