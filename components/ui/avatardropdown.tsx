@@ -39,9 +39,11 @@ const Avatardropdown = () => {
               Dashboard
             </DropdownMenuItem>
           </Link>
-          <DropdownMenuItem className="cursor-pointer">
-            My Orders
-          </DropdownMenuItem>
+          <Link href={"/orders"}>
+            <DropdownMenuItem className="cursor-pointer">
+              My Orders
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem className="cursor-pointer">
             Settings
           </DropdownMenuItem>

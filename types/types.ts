@@ -9,11 +9,10 @@ export interface Product {
     createdAt: Date;
     updatedAt: Date;
   } | null;
-  categoryId?: string; // Optional
+  categoryId?: string | null; // Allow null
   description: string;
   quantity?: number; // Optional
 }
-
 export type OrderType = {
   street: string;
   city: string;
@@ -55,7 +54,7 @@ export type OrderItem = {
   id: string;
   orderId: string;
   price: number;
-  product: Product;
+  product: Product; // Updated to match the new Product type
   productId: string;
   quantity: number;
 };

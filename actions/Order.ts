@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { OrderType, Product, OrderStatusEnum } from "@/types/types";
+import { OrderType, Product, OrderStatusEnum, Order } from "@/types/types";
 
 export const CreateOrder = async (
   formData: OrderType,
@@ -126,5 +126,38 @@ export const DeleteOrder = async (id: string) => {
   } catch (error) {
     console.error("Error deleting order:", error);
     throw new Error("Failed to delete order. Please try again.");
+  }
+};
+
+export const GetOrdersByUser = async (): Promise<Order[]> => {
+  const { isAuthenticated, getUser } = await getKindeServerSession();
+
+  const isUserAuthenticated = await isAuthenticated();
+  if (!isUserAuthenticated) {
+    throw new Error("You need to be authenticated to get orders");
+  }
+
+  const user = await getUser();
+  if (!user) {
+    throw new Error("Unable to retrieve user information");
+  }
+
+  try {
+    const orders = await prisma.order.findMany({
+      where: { user: { kindeId: user.id } },
+      include: {
+        items: {
+          include: {
+            product: { include: { category: true } },
+          },
+        },
+        user: true,
+      },
+    });
+
+    return orders as Order[]; // Explicitly cast to Order[]
+  } catch (error) {
+    console.error("Error fetching your orders:", error);
+    throw new Error("Failed to fetch orders");
   }
 };
