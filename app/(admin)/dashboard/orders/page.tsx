@@ -1,12 +1,9 @@
 import DataTable from "@/components/ui/data-table";
-import prisma from "@/lib/db";
 import { columns } from "./columns";
+import { GetAllOrders } from "@/actions/Order";
 
 const OrdersPage = async () => {
-  const orders = await prisma.order.findMany({
-    include: { items: { include: { product: true } }, user: true },
-  });
-  console.log(orders);
+  const orders = await GetAllOrders();
   return (
     <div className="container mx-auto py-5">
       <DataTable

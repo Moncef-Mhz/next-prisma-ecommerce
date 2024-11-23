@@ -161,3 +161,31 @@ export const GetOrdersByUser = async (): Promise<Order[]> => {
     throw new Error("Failed to fetch orders");
   }
 };
+
+export const GetAllOrders = async (): Promise<Order[]> => {
+  const { isAuthenticated, getPermission } = await getKindeServerSession();
+  const isUserAuthenticated = await isAuthenticated();
+  if (!isUserAuthenticated) {
+    throw new Error("You need to be authenticated to get all orders");
+  }
+  const isPerms = await getPermission("view:product");
+  if (!isPerms?.isGranted) {
+    throw new Error("You don't have permission to view all orders");
+  }
+  try {
+    const orders = await prisma.order.findMany({
+      include: {
+        items: {
+          include: {
+            product: { include: { category: true } },
+          },
+        },
+        user: true,
+      },
+    });
+    return orders as Order[]; // Explicitly cast to Order[]
+  } catch (error) {
+    console.error("Error fetching all orders:", error);
+    throw new Error("Failed to fetch all orders");
+  }
+};
