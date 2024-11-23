@@ -1,7 +1,6 @@
 "use client";
 
 import { CreateCategory } from "@/actions/Category";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -43,27 +42,41 @@ const NewCategoryForm = () => {
   }
 
   return (
-    <div className="w-full h-full space-y-6">
-      <h2 className="text-2xl md:text-3xl">Create New Category</h2>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Category Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="ex: Camera" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
+    <div className="flex justify-center items-center h-screen bg-card">
+      <div className="w-full max-w-md p-6 rounded-lg shadow-md border bg-card text-card-foreground">
+        <h2 className="text-xl font-semibold text-center mb-4">New Category</h2>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-sm font-medium">
+                    Category Name
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="e.g., Electronics"
+                      className="bg-input text-card-foreground"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              className="w-full bg-primary text-primary-foreground hover:bg-opacity-90 trans"
+            >
+              Submit
+            </Button>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 };
+
 export default NewCategoryForm;

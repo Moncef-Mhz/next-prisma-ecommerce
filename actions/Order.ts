@@ -163,15 +163,6 @@ export const GetOrdersByUser = async (): Promise<Order[]> => {
 };
 
 export const GetAllOrders = async (): Promise<Order[]> => {
-  const { isAuthenticated, getPermission } = await getKindeServerSession();
-  const isUserAuthenticated = await isAuthenticated();
-  if (!isUserAuthenticated) {
-    throw new Error("You need to be authenticated to get all orders");
-  }
-  const isPerms = await getPermission("view:product");
-  if (!isPerms?.isGranted) {
-    throw new Error("You don't have permission to view all orders");
-  }
   try {
     const orders = await prisma.order.findMany({
       include: {

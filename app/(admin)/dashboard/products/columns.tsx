@@ -17,7 +17,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { DeleteProduct } from "@/actions/Product";
 import { useEffect, useState } from "react";
-import { GetCategories } from "@/actions/Category";
+import { GetAllCategories } from "@/actions/Category";
 import { useRouter } from "next/navigation";
 import { ToastAction } from "@/components/ui/toast";
 import { toast } from "@/hooks/use-toast";
@@ -86,7 +86,7 @@ export const columns: ColumnDef<Product>[] = [
 
       useEffect(() => {
         const fetchCategories = async () => {
-          const fetchedCategories = await GetCategories();
+          const fetchedCategories = await GetAllCategories();
           setCategories(fetchedCategories);
         };
 
