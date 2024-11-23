@@ -64,3 +64,18 @@ export const DeleteProduct = async (id: string) => {
     }
   }
 };
+
+export const GetAllProducts = async () => {
+  try {
+    const products = await prisma.product.findMany({
+      include: {
+        category: true,
+      },
+    });
+
+    return products;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw new Error("Failed to fetch products");
+  }
+};

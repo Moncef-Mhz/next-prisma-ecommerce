@@ -1,15 +1,10 @@
 import prisma from "@/lib/db";
-
 import { columns } from "./columns";
-
 import { DataTable } from "@/components/ui/data-table";
+import { GetAllProducts } from "@/actions/Product";
 
 const ProductsPage = async () => {
-  const products = (
-    await prisma.product.findMany({
-      include: { category: true },
-    })
-  ).map((product) => ({
+  const products = (await GetAllProducts()).map((product) => ({
     ...product,
     categoryId: product.categoryId ?? undefined,
     quantity: product.quantity ?? 0,

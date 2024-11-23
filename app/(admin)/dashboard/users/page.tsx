@@ -1,9 +1,9 @@
 import DataTable from "@/components/ui/data-table";
-import prisma from "@/lib/db";
 import { columns } from "./columns";
+import { GetAllUsers } from "@/actions/User";
 
 const Users = async () => {
-  const users = await prisma.user.findMany();
+  const users = await GetAllUsers();
   return (
     <div className="container mx-auto py-5">
       <DataTable

@@ -24,7 +24,7 @@ export const CreateCategory = async (formData: { name: string }) => {
     }
   }
 };
-export const GetCategories = async () => {
+export const GetAllCategories = async () => {
   try {
     const categories = await prisma.category.findMany();
     return categories;

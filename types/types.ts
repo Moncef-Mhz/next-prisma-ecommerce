@@ -64,3 +64,17 @@ export enum OrderStatusEnum {
   IN_PROGRESS = "in_progress",
   SHIPPED = "shipped",
 }
+
+export type User = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  kindeId: string;
+  address?: {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+  } | null;
+};

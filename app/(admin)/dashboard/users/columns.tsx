@@ -16,20 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DeleteProduct } from "@/actions/Product";
-
-export type User = {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  kindeId: string;
-  address?: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-  } | null;
-};
+import { User } from "@/types/types";
 
 export const columns: ColumnDef<User>[] = [
   {

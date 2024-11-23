@@ -32,7 +32,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { SingleImageDropzone } from "@/components/ui/singleImageDropzone";
-import { GetCategories } from "@/actions/Category";
+import { GetAllCategories } from "@/actions/Category";
 import { NewProductSchema as formSchema } from "@/types/FormTypes";
 import { Category } from "@/types/types";
 
@@ -43,7 +43,7 @@ const NewProductForm = () => {
   useEffect(() => {
     const loadCategories = async () => {
       try {
-        const categories = await GetCategories();
+        const categories = await GetAllCategories();
         setCategories(categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
