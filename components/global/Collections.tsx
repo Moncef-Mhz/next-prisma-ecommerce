@@ -13,7 +13,7 @@ const Collections = () => {
           <ArrowRight size={20} />
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
         {collections.map((item) => (
           <div key={item.id} className="relative group w-full h-full">
             {/* Image */}

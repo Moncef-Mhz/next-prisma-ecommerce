@@ -15,7 +15,7 @@ const Hero = () => {
         {/* Black Overlay */}
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-60"></div>
         {/* Content */}
-        <div className="absolute w-full h-full top-0 left-0 grid gap-y-4 place-content-center">
+        <div className="absolute w-full h-full top-0 px-10 left-0 grid gap-y-4 place-content-center">
           <h1 className="text-2xl text-center md:text-3xl leading-relaxed lg:text-4xl xl:text-7xl text-white font-bold">
             Discover the Perfect Blend of <br /> Elegance and Comfort
           </h1>

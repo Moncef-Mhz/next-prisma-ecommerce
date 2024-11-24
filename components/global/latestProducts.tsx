@@ -4,7 +4,6 @@ import ProductCard from "./Card";
 import prisma from "@/lib/db";
 
 const LatestProducts = async () => {
-  // Fetching latest products from your API or database
   const products = await prisma.product.findMany({
     include: { category: true },
     take: 4,
@@ -18,7 +17,7 @@ const LatestProducts = async () => {
           <ArrowRight size={20} />
         </p>
       </div>
-      <div className="grid gap-5 md:grid-cols-2 grid-cols-1 lg:grid-cols-4 w-full">
+      <div className="grid gap-5 md:grid-cols-2 grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 w-full">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

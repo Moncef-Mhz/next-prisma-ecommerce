@@ -28,7 +28,7 @@ const Header = () => {
               className=""
             />
           </Link>
-          <ul className="flex h-full items-center justify-center gap-x-4 pt-8">
+          <ul className="md:flex hidden  h-full items-center justify-center gap-x-4 pt-8">
             {navLinks.map((item) => (
               <Link
                 href={item.link}
