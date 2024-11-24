@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "lucide-react";
+import { User, User2, User2Icon, UserRound } from "lucide-react";
 
 import {
   RegisterLink,
@@ -77,11 +77,11 @@ const Avatardropdown = () => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         {/*  */}
-        <Avatar className=" select-none outline-none">
+        <Avatar className=" select-none outline-none bg-none">
           {user?.picture && <AvatarImage src={user.picture} />}
 
-          <AvatarFallback>
-            <User className="text-black/70" />
+          <AvatarFallback className="bg-background">
+            <UserRound className="text-foreground/50 hover:text-foreground/70 trans" />
           </AvatarFallback>
         </Avatar>
         {/*  */}

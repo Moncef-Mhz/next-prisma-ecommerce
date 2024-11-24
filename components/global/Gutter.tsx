@@ -12,7 +12,7 @@ export const Gutter: React.FC<Props> = (props) => {
     <main
       className={[
         className,
-        "max-w-[1920px] px-4  lg:px-[40px] xl:px-[72px] mx-auto",
+        "max-w-[1920px] px-4  lg:px-[40px] xl:px-[98px] mx-auto",
       ]
         .filter(Boolean)
         .join(" ")}

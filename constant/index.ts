@@ -1,8 +1,8 @@
-const navLinks = [
+export const navLinks = [
   {
     id: 1,
-    name: "shop",
-    link: "/shop",
+    name: "home",
+    link: "/",
   },
   {
     id: 2,
@@ -11,17 +11,17 @@ const navLinks = [
   },
   {
     id: 3,
-    name: "about",
-    link: "/about",
+    name: "company",
+    link: "/company",
   },
   {
     id: 4,
-    name: "contact",
-    link: "/contact",
+    name: "Stores",
+    link: "/stores",
   },
 ];
 
-const products = [
+export const products = [
   {
     name: "Smart Home Hub",
     description:
@@ -78,4 +78,26 @@ const products = [
   },
 ];
 
-export { navLinks, products };
+export const collections = [
+  {
+    id: 1,
+    name: "Desk and Office",
+    description: "Work from home accessories",
+    products: [1, 2, 3],
+    image: "/images/collections/office.jpg",
+  },
+  {
+    id: 2,
+    name: "Furniture Collection",
+    description: "Comfortable office chairs",
+    products: [4],
+    image: "/images/collections/furniture.jpg",
+  },
+  {
+    id: 3,
+    name: "Kitchen and Bath",
+    description: "Healthy kitchen and bath products",
+    products: [5, 6],
+    image: "/images/collections/kitchen.jpg",
+  },
+];

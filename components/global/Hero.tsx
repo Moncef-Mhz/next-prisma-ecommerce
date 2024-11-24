@@ -3,24 +3,29 @@ import { Gutter } from "./Gutter";
 
 const Hero = () => {
   return (
-    <Gutter className="w-full  h-auto ">
-      <div className="relative">
+    <div className="w-full h-full">
+      <div className="relative bg-black h-full">
         <Image
-          src={"/images/hero7.jpg"}
-          width={5000}
-          height={5000}
+          src="/images/hero8.jpg"
+          width={1000}
+          height={1000}
           alt="Hero Image"
-          className="rounded-xl w-full min-h-[300px]  object-cover max-h-[600px]"
+          className="w-full h-screen object-cover"
         />
-        <div className="absolute m-14 top-0 left-0 flex flex-col gap-y-6">
-          <h1 className="text-2xl md:text-3xl leading-relaxed lg:text-4xl xl:text-5xl text-white font-bold">
-            You can find anything in <br />
-            this store
+        {/* Black Overlay */}
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-60"></div>
+        {/* Content */}
+        <div className="absolute w-full h-full top-0 left-0 grid gap-y-4 place-content-center">
+          <h1 className="text-2xl text-center md:text-3xl leading-relaxed lg:text-4xl xl:text-7xl text-white font-bold">
+            Discover the Perfect Blend of <br /> Elegance and Comfort
           </h1>
-          <p className="text-neutral-200 text-base">u can find anything here</p>
+          <p className="text-neutral-200 text-center  text-base">
+            Explore a curated collection of clothes designed to inspire and
+            elevate your everyday. Quality, comfort, and style—all in one place.
+          </p>
         </div>
       </div>
-    </Gutter>
+    </div>
   );
 };
 export default Hero;

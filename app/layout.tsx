@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import { AuthProvider } from "@/lib/AuthProvider";
@@ -8,7 +8,10 @@ import { Toaster } from "@/components/ui/toaster";
 import LayoutProivder from "@/utils/LayoutProivder";
 import { ThemeProvider } from "@/lib/theme-provider";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const inter = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Ecommerce Prisma",

@@ -10,7 +10,7 @@ const LatestProducts = async () => {
     take: 4,
   });
   return (
-    <Gutter className="flex flex-col gap-6">
+    <Gutter className="flex flex-col gap-y-10">
       <div className="flex items-center justify-between w-full">
         <h1 className="text-2xl md:text-3xl font-semibold">Latest Products</h1>
         <p className="text-sm cursor-pointer md:text-base hover:text-blue-300 trans text-blue-400 flex items-center">

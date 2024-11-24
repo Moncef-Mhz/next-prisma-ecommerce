@@ -20,11 +20,9 @@ const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <div className="relative">
-          <ShoppingCart className="cursor-pointer hover:text-foreground/50 trans" />
-          <div className="w-5 h-5 text-xs flex items-center justify-center rounded-full border-background border-2 bg-red-400 text-white absolute -top-2 -right-2">
-            {cartItems.length}
-          </div>
+        <div className="relative flex items-center gap-x-4 justify-center text-foreground/50 hover:text-foreground/70">
+          <ShoppingCart className="cursor-pointer  trans" />
+          {cartItems.length}
         </div>
       </SheetTrigger>
       <SheetContent className="flex flex-col h-full ">
