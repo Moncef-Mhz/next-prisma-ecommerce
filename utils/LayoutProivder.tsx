@@ -34,17 +34,12 @@ const LayoutProivder = ({
     );
   } else {
     return (
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="light"
-        enableSystem
-        disableTransitionOnChange
-      >
+      <>
         <StateContext>
           <Header />
           {children}
         </StateContext>
-      </ThemeProvider>
+      </>
     );
   }
 };

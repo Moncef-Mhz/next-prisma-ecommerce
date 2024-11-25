@@ -9,9 +9,9 @@ export interface Product {
     createdAt: Date;
     updatedAt: Date;
   } | null;
-  categoryId?: string | null; // Allow null
+  categoryId?: string | null;
   description: string;
-  quantity?: number; // Optional
+  quantity?: number | null; // Allow null here
 }
 export type OrderType = {
   street: string;

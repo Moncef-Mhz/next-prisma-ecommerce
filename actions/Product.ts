@@ -79,3 +79,23 @@ export const GetAllProducts = async () => {
     throw new Error("Failed to fetch products");
   }
 };
+
+export const filterProducts = async (categories: string[]) => {
+  try {
+    const products = await prisma.product.findMany({
+      where: categories.length ? { categoryId: { in: categories } } : {}, // Fetch all products if no category is selected
+      include: {
+        category: true,
+      },
+    });
+
+    // Transform `quantity: null` to `quantity: undefined`
+    return products.map((product) => ({
+      ...product,
+      quantity: product.quantity ?? undefined, // Replace null with undefined
+    }));
+  } catch (error) {
+    console.error("Error filtering products:", error);
+    throw new Error("Failed to filter products");
+  }
+};
