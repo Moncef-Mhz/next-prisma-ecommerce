@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { Product } from "@/types/types";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export const CreateProduct = async (formData: {
@@ -97,5 +98,22 @@ export const filterProducts = async (categories: string[]) => {
   } catch (error) {
     console.error("Error filtering products:", error);
     throw new Error("Failed to filter products");
+  }
+};
+
+export const GetOneProduct = async (id: string) => {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: { category: true },
+    });
+
+    if (!product) {
+      throw new Error("Product not found");
+    }
+    return product;
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    throw new Error("Failed to fetch product");
   }
 };

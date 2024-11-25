@@ -15,7 +15,7 @@ interface StateContextType {
   setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
   showCart: boolean;
   setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
-  AddToCart: (product: Product) => void;
+  AddToCart: (product: Product, quantity: number) => void;
   removeFromCart: (product: Product) => void;
   clearCart: () => void;
   getCartTotal: () => number;
@@ -35,17 +35,17 @@ export const StateContext = ({ children }: { children: ReactNode }) => {
 
   const [showCart, setShowCart] = useState(false);
 
-  const AddToCart = (product: Product) => {
+  const AddToCart = (product: Product, quantity: number = 1) => {
     setCartItems((current) => {
       const existingProduct = current.find((item) => item.id === product.id);
       if (existingProduct) {
         return current.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: (item.quantity || 1) + 1 }
+            ? { ...item, quantity: (item.quantity || 1) + quantity }
             : item
         );
       }
-      return [...current, { ...product, quantity: 1 }];
+      return [...current, { ...product, quantity }];
     });
   };
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const CheckoutItems = () => {
-  const { cartItems } = useStateContext();
+  const { cartItems, removeFromCart } = useStateContext();
   return (
     <>
       <h1 className="text-2xl font-bold p-4 border-b">Your Cart</h1>
@@ -46,7 +46,10 @@ const CheckoutItems = () => {
                 </div>
               </div>
               <div>
-                <Trash className="cursor-pointer" />
+                <Trash
+                  className="cursor-pointer"
+                  onClick={() => removeFromCart(item)}
+                />
               </div>
             </div>
           ))}

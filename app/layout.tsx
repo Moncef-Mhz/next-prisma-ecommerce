@@ -6,7 +6,6 @@ import { AuthProvider } from "@/lib/AuthProvider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { Toaster } from "@/components/ui/toaster";
 import LayoutProivder from "@/utils/LayoutProivder";
-import { ThemeProvider } from "@/lib/theme-provider";
 
 const inter = Poppins({
   subsets: ["latin"],
