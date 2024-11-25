@@ -92,7 +92,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             </div>
           </div>
           <div className="border-b py-4">
-            <Button variant="default" className="w-full lg:w-auto " onClick={()=>handleAddToCart()}>
+            <Button
+              variant="default"
+              className="w-full lg:w-auto "
+              onClick={() => handleAddToCart()}
+              disabled={selectedQuantity < 1}
+            >
               Buy Now
             </Button>
           </div>

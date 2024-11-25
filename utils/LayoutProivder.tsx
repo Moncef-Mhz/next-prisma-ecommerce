@@ -17,11 +17,17 @@ const LayoutProivder = ({
   }, []);
 
   const path = usePathname();
+  const isDashboard = path?.split("/")[1] === "dashboard";
 
   if (!mounted) {
-    return <div />; // Or a loading spinner
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
   }
-  if (path.split("/")[1] === "dashboard") {
+
+  if (isDashboard) {
     return (
       <ThemeProvider
         attribute="class"

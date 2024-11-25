@@ -32,12 +32,6 @@ type Props = {
 };
 
 const ProductCard = ({ product }: Props) => {
-  const { AddToCart, clearCart, cartItems } = useStateContext();
-
-  const handleAddToCart = () => {
-    AddToCart(product);
-  };
-
   return (
     <div key={product.id} className="group relative">
       <Image
