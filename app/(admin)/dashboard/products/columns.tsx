@@ -2,26 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import { MoreHorizontal } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DeleteProduct } from "@/actions/Product";
-import { useEffect, useState } from "react";
-import { GetAllCategories } from "@/actions/Category";
-import { useRouter } from "next/navigation";
-import { ToastAction } from "@/components/ui/toast";
-import { toast } from "@/hooks/use-toast";
-import { Category, Product } from "@/types/types";
+import { Product } from "@/types/types";
+import CategoryCell from "@/components/TableActions/GetCategoryCell";
+import ActionsCell from "@/components/TableActions/ProductActions";
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -81,69 +68,15 @@ export const columns: ColumnDef<Product>[] = [
     accessorKey: "categoryId",
     header: () => <div className="float-right">Category</div>,
     cell: ({ row }) => {
-      const [categories, setCategories] = useState<Category[]>([]);
-      const categoryId = row.getValue("categoryId");
-
-      useEffect(() => {
-        const fetchCategories = async () => {
-          const fetchedCategories = await GetAllCategories();
-          setCategories(fetchedCategories);
-        };
-
-        fetchCategories();
-      }, []);
-
-      const category = categories.find((cat) => cat.id === categoryId);
-      const categoryName = category ? category.name : "Unknown";
-
-      return <div className="text-right font-medium">{categoryName}</div>;
+      const categoryId: string = row.getValue("categoryId");
+      return <CategoryCell categoryId={categoryId} />;
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
       const product = row.original;
-      const router = useRouter();
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 float-right">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(product.id)}
-            >
-              Copy Product URL
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Update</DropdownMenuItem>
-            <DropdownMenuItem
-              className="text-red-500 "
-              onClick={async () => {
-                const res = await DeleteProduct(product.id);
-                toast({
-                  description: res?.success,
-                  action: (
-                    <ToastAction
-                      altText="refresh"
-                      onClick={() => router.refresh()}
-                    >
-                      refresh
-                    </ToastAction>
-                  ),
-                });
-              }}
-            >
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <ActionsCell product={product} />;
     },
   },
 ];

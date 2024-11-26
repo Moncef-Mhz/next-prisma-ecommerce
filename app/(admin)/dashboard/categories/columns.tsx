@@ -1,28 +1,16 @@
 "use client";
 
-import { DeleteCategory } from "@/actions/Category";
-
 import { ColumnDef } from "@tanstack/react-table";
 
-import { MoreHorizontal } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 
 import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "@/hooks/use-toast";
-import { ToastAction } from "@/components/ui/toast";
-import { useRouter } from "next/navigation";
 import { Category } from "@/types/types";
+
+import CategoryActions from "@/components/TableActions/CategoryActions";
 
 export const columns: ColumnDef<Category>[] = [
   {
@@ -87,48 +75,8 @@ export const columns: ColumnDef<Category>[] = [
     id: "actions",
     cell: ({ row }) => {
       const category = row.original;
-      const router = useRouter();
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 float-right">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(category.id)}
-            >
-              Copy Product URL
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Info</DropdownMenuItem>
-            <DropdownMenuItem
-              className="text-red-500 "
-              onClick={async () => {
-                const res = await DeleteCategory(category.id);
-
-                toast({
-                  description: res?.success,
-                  action: (
-                    <ToastAction
-                      altText="refresh"
-                      onClick={() => router.refresh()}
-                    >
-                      refresh
-                    </ToastAction>
-                  ),
-                });
-              }}
-            >
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <CategoryActions category={category} />;
     },
   },
 ];
