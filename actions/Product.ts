@@ -48,10 +48,10 @@ export const DeleteProduct = async (id: string) => {
 
   const hasPermission = await getPermission("delete:product");
   const isUserAuthenticated = await isAuthenticated();
-
+  console.log(id);
   if (hasPermission?.isGranted && isUserAuthenticated) {
     try {
-      const deleteproduct = await prisma.product.delete({ where: { id: id } });
+      const deleteproduct = await prisma.product.delete({ where: { id } });
 
       if (!deleteproduct) {
         throw new Error("Product not found");
