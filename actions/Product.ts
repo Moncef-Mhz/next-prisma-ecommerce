@@ -1,7 +1,6 @@
 "use server";
 
 import prisma from "@/lib/db";
-import { Product } from "@/types/types";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export const CreateProduct = async (formData: {

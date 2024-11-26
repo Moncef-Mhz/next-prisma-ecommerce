@@ -1,11 +1,36 @@
+"use client";
 import { GetAllCategories } from "@/actions/Category";
 import { GetAllProducts } from "@/actions/Product";
 import { Gutter } from "@/components/global/Gutter";
 import ProductFilterClient from "@/components/ui/ProductFilterClient";
+import { Category, Product } from "@/types/types";
+import { useEffect, useState } from "react";
 
-const page = async () => {
-  const products = await GetAllProducts();
-  const categories = await GetAllCategories();
+const page = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const productsResponse = await GetAllProducts();
+        const categoriesResponse = await GetAllCategories();
+
+        setProducts(productsResponse);
+        setCategories(categoriesResponse);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <Gutter className="w-full h-full flex flex-col space-y-10 my-20">
       <div className="flex flex-col items-start gap-4 pb-8 border-b">
