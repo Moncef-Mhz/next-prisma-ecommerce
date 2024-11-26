@@ -1,22 +1,36 @@
+"use client";
+import { useEffect, useState } from "react";
 import { GetOrdersByUser } from "@/actions/Order";
 import { Gutter } from "@/components/global/Gutter";
 import UserOrder from "@/components/global/order/UserOrder";
 
-const OrderPage = async () => {
-  try {
-    const orders = await GetOrdersByUser();
-    return (
-      <Gutter>
-        <UserOrder orders={orders} />
-      </Gutter>
-    );
-  } catch (error) {
-    console.error("Error fetching orders:", error);
-    return (
-      <Gutter>
+const OrderPage = () => {
+  const [orders, setOrders] = useState<any[]>([]);
+  const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const ordersData = await GetOrdersByUser();
+        setOrders(ordersData);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        setError(true);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  return (
+    <Gutter>
+      {error ? (
         <p>Error loading orders. Please try again later.</p>
-      </Gutter>
-    );
-  }
+      ) : (
+        <UserOrder orders={orders} />
+      )}
+    </Gutter>
+  );
 };
+
 export default OrderPage;
