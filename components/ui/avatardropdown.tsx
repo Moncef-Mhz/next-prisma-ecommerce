@@ -1,12 +1,8 @@
 "use client";
 
-import { User, User2, User2Icon, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 
-import {
-  RegisterLink,
-  LoginLink,
-  LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
+import { LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 import {
   DropdownMenu,
@@ -25,8 +21,6 @@ const Avatardropdown = () => {
 
   const user = getUser();
   const perms = getPermission("create:product");
-
-  const avatarFallback = user?.email?.slice(0, 2);
 
   const DropdownItems = (
     <>

@@ -4,7 +4,7 @@ import { DeleteCategory } from "@/actions/Category";
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import { ArrowDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 
 import { format } from "date-fns";

@@ -14,8 +14,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const Cart = () => {
-  const { cartItems, setCartItems, clearCart, getCartTotal } =
-    useStateContext();
+  const { cartItems, clearCart, getCartTotal } = useStateContext();
 
   return (
     <Sheet>

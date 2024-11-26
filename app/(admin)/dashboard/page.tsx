@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import { BoxIcon, Layers3, ListOrdered, Tag, Tags } from "lucide-react";
+import { BoxIcon, Layers3, Tag } from "lucide-react";
 import Link from "next/link";
 
 export default async function Page() {

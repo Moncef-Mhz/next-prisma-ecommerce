@@ -1,8 +1,4 @@
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/ui/app-sidebar";
 import Adminbreadcrumbs from "@/components/ui/admin-breadcrumbs";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";

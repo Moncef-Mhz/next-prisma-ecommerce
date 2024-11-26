@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Gutter } from "./Gutter";
 
 const Hero = () => {
   return (

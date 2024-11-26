@@ -46,7 +46,7 @@ const CheckoutForm = () => {
     setIsLoading(true);
 
     try {
-      const order = await CreateOrder(values, getCartTotal(), products);
+      await CreateOrder(values, getCartTotal(), products);
       toast({ description: "Order created successfully!" });
       clearCart();
     } catch (error) {

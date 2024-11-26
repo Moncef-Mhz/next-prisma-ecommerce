@@ -1,16 +1,6 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { useStateContext } from "@/context/StateContext";
 import Link from "next/link";
 
 type Product = {

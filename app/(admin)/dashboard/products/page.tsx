@@ -1,4 +1,3 @@
-import prisma from "@/lib/db";
 import { columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import { GetAllProducts } from "@/actions/Product";

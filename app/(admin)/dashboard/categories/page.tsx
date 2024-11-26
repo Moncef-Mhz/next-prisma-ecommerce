@@ -1,6 +1,5 @@
 import DataTable from "@/components/ui/data-table";
 import { columns } from "./columns";
-import prisma from "@/lib/db";
 import { GetAllCategories } from "@/actions/Category";
 
 const CategoriesPage = async () => {

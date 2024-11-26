@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { GetOrdersByUser } from "@/actions/Order";
 import { Gutter } from "@/components/global/Gutter";
 import UserOrder from "@/components/global/order/UserOrder";
+import { Order } from "@/types/types";
 
 const OrderPage = () => {
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
