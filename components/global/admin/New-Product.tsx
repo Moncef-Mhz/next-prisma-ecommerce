@@ -65,7 +65,12 @@ const NewProductForm = () => {
     loadCategories();
   }, []);
 
-  const handleImageUpload = async (file: any) => {
+  const handleImageUpload = async (file?: File) => {
+    if (!file) {
+      console.error("No file provided.");
+      return; // Early exit if no file is provided
+    }
+
     try {
       const uploadResponse = await edgestore.publicFiles.upload({ file });
       const uploadedImageUrl = uploadResponse.url;
